@@ -10,6 +10,7 @@ import subprocess
 import sys
 import typer
 from rich import print
+from security import safe_command
 
 
 def main(path: str = None):
@@ -20,8 +21,7 @@ def main(path: str = None):
             command.append(path)
 
         # Run `ruff` and pipe output to the terminal
-        process = subprocess.run(
-            command,
+        process = safe_command.run(subprocess.run, command,
             check=True,
             stdout=sys.stdout,  # Redirect stdout to the terminal
             stderr=sys.stderr,  # Redirect stderr to the terminal
