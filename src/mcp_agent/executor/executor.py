@@ -29,6 +29,7 @@ from mcp_agent.executor.workflow_signal import (
 )
 from mcp_agent.logging.logger import get_logger
 from mcp_agent.tracing.telemetry import telemetry
+import secrets
 
 if TYPE_CHECKING:
     from mcp_agent.core.context import Context
@@ -229,7 +230,7 @@ class Executor(ABC, ContextDependent):
 
         Defaults to random.Random().
         """
-        return random.Random()
+        return secrets.SystemRandom().Random()
 
 
 class AsyncioExecutor(Executor):

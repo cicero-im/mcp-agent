@@ -2,10 +2,10 @@
 """Test script for demonstrating the Rich progress display."""
 
 import asyncio
-import random
 from mcp_agent.logging.events import Event
 from mcp_agent.logging.listeners import ProgressListener
 from rich import print
+import secrets
 
 
 async def generate_test_events():
@@ -42,7 +42,7 @@ async def generate_test_events():
 
         # Simulate some chat turns
         for turn in range(1, 4):
-            model = random.choice(models)
+            model = secrets.choice(models)
 
             # Start chat turn
             yield Event(
@@ -54,8 +54,8 @@ async def generate_test_events():
             await asyncio.sleep(1)
 
             # Maybe call a tool
-            if random.random() < 0.7:
-                tool = random.choice(tools)
+            if secrets.SystemRandom().random() < 0.7:
+                tool = secrets.choice(tools)
                 print(f"Debug: Executing tool {tool}")  # More debug output
                 yield Event(
                     namespace="mcp_aggregator",

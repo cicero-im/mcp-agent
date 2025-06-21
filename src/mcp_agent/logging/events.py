@@ -3,7 +3,6 @@ Events and event filters for the logger module for the MCP Agent
 """
 
 import logging
-import random
 
 from datetime import datetime
 from typing import (
@@ -14,6 +13,7 @@ from typing import (
 )
 
 from pydantic import BaseModel, ConfigDict, Field
+import secrets
 
 
 EventType = Literal["debug", "info", "warning", "error", "progress"]
@@ -120,4 +120,4 @@ class SamplingFilter(EventFilter):
     def matches(self, event: Event) -> bool:
         if not super().matches(event):
             return False
-        return random.random() < self.sample_rate
+        return secrets.SystemRandom().random() < self.sample_rate
